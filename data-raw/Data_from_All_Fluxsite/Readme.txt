@@ -1,0 +1,2 @@
+Site information from Walther et al., 2022: Technical note: A view from space on global flux towers by MODIS
+and Landsat: the FluxnetEO data set: https://bg.copernicus.org/articles/19/2805/2022/bg-19-2805-2022.pdf
