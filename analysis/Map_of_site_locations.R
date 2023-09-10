@@ -105,7 +105,7 @@ p_final_1<-gg+
 #save the plots
 save.path<-"./manuscript/figures/"
 ggsave(file=paste0(save.path,"Figure1_sites_distribution_fluxandisotope.png"),
-       p_final_1,dev="png",width = 10.8,height=8)
+       p_final_1,dev="png",width = 8,height=7)
 
 
 
