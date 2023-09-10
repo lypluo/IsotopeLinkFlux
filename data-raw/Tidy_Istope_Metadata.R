@@ -33,3 +33,4 @@ names(Iso.dataInfo_tidy)<-New_names
 #---------------
 save.path<-"./data/"
 save(Iso.dataInfo_tidy,file = paste0(save.path,"Iso.dataInfo_tidy.RDA"))
+write.csv(Iso.dataInfo_tidy,file = paste0("./data-raw/Data_from_DrAn/tidy_ISONet_Metadata.csv"))
