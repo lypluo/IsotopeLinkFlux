@@ -57,7 +57,7 @@ df.final$Datasource<-factor(df.final$Datasource,
 library(RColorBrewer)
 library(grDevices)
 ############
-# map theme
+#1. map theme
 ############
 #can refer:http://www.sthda.com/english/wiki/ggplot2-themes-and-background-colors-the-3-elements
 ##update in 2022,Oct-->using Beni' code (but revised it) to create a empty global map
@@ -106,8 +106,42 @@ p_final_1<-gg+
 save.path<-"./manuscript/figures/"
 ggsave(file=paste0(save.path,"Figure1_sites_distribution_fluxandisotope.png"),
        p_final_1,dev="png",width = 8,height=7)
+#------------------------
+#3. add further information for isotope site-->Dr. An provide information on Oct, 2023
+#------------------------
+site.info_add<-readxl::read_excel(paste0("./data-raw/Data_from_DrAn/isotope_site_information.xlsx"))
+names(site.info_add)<-c("Longtitude","Latitude")
+#
+lonmin=-180
+lonmax=180
+latmin=-45
+latmax=75  ##the latmax should slight >75 as the setting in the function
+gg<-plot_map_simpl(lonmin,lonmax,latmin,80)
 
-
+p_final_2_world<-gg+
+  geom_point(data = site.info_add,aes(x=Longtitude,y=Latitude),col="purple")
+p_final_2_europe_Allsites<-p_final_1+
+  geom_point(data = site.info_add,aes(x=Longtitude,y=Latitude),
+             col="purple")+
+  geom_label_repel(data=df.final[df.final$Datasource=="Allsites-Fluxes",],
+             aes(x=Longtitude,y=Latitude,label = ID),col="blue",
+             label_size=NA,alpha=0.8,label.padding = .1,
+             max.overlaps = 50,label.size = 0.1,
+             arrow = arrow(ends = "first",length = unit(0.05,"inch")),
+             size = 2.8)
+ggsave(file=paste0(save.path,"Figure1_add_sites_distribution_fluxandisotope_Allsites-Fluxes-text.png"),
+       p_final_2_europe,dev="png",width = 18,height=15)
+p_final_2_europe_ICOS<-p_final_1+
+  geom_point(data = site.info_add,aes(x=Longtitude,y=Latitude),
+             col="purple")+
+  geom_label_repel(data=df.final[df.final$Datasource=="ICOS-Fluxes",],
+                   aes(x=Longtitude,y=Latitude,label = ID),col="blue",
+                   label_size=NA,alpha=0.8,label.padding = .1,
+                   max.overlaps = 50,label.size = 0.1,
+                   arrow = arrow(ends = "first",length = unit(0.05,"inch")),
+                   size = 2.8)
+ggsave(file=paste0(save.path,"Figure1_add_sites_distribution_fluxandisotope_ICOS-Fluxes-text.png"),
+       p_final_2_europe_ICOS,dev="png",width = 18,height=15)
 
 ##################back up code#############################
 #merge two plots:
