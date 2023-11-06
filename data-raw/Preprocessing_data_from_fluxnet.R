@@ -225,9 +225,9 @@ apply(df_all_sel_daily[,-c(1:2)],2,function(x){sum(!is.na(x))})
 ##adding in Nov, 2023:
 #convert LE to ET:
 library(bigleaf)
-#unit conversion:LE: W m-2-->kg m-2 s-1-->water depth: mm (24*3600/1000)*100
+#unit conversion:LE: W m-2-->kg m-2 d-1 (24*3600)
 #GPP-->umol m-2 s-1-->gC m-2 d-1: 10-6*12*24*3600
-df_all_sel_daily$ET_mean<-LE.to.ET(df_all_sel_daily$LE_mean,df_all_sel_daily$Ta_mean)*24*360
+df_all_sel_daily$ET_mean<-LE.to.ET(df_all_sel_daily$LE_mean,df_all_sel_daily$Ta_mean)*24*3600
 df_all_sel_daily$GPP_DT_mean<-df_all_sel_daily$GPP_DT_mean*12*24*3600/1000000
 df_all_sel_daily$GPP_NT_mean<-df_all_sel_daily$GPP_NT_mean*12*24*3600/1000000
 
