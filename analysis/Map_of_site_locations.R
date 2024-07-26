@@ -142,7 +142,21 @@ p_final_2_europe_ICOS<-p_final_1+
                    size = 2.8)
 ggsave(file=paste0(save.path,"Figure1_add_sites_distribution_fluxandisotope_ICOS-Fluxes-text.png"),
        p_final_2_europe_ICOS,dev="png",width = 18,height=15)
-
+##----------------
+#plot one plot for AGU:Dec,2023:
+df.AGU.sel<-df.final %>%
+  filter(Sitename %in% c("Davos","Tharandt"))
+p_final_AGU<-gg+
+  geom_point(data=df.AGU.sel,aes(x=Longtitude,y=Latitude,col=Datasource),size=4,pch=16)+
+  # scale_color_gradientn(expression ("GPP bias (g m"^-2*"d"^-1*")"),
+  #                       colours = c("blue", "white", "red"),
+  #                       values = c(0, 0.5, 1))+
+  # annotate(geom = "text",x=-160,y=75,label="a",size=6)+
+  theme(legend.title = element_text(size=16),
+        legend.text = element_text(size=12))+
+  scale_color_manual(values = c("ICOS-Fluxes"="blue"))
+ggsave(file=paste0(save.path,"sampling_sites.png"),
+       p_final_AGU,dev="png",width = 7,height=7)
 ##################back up code#############################
 #merge two plots:
 library(gridExtra)
